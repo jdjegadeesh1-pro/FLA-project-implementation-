@@ -1,0 +1,45 @@
+digraph SmartHomeEnergyDFA {
+    rankdir=LR;
+    size="12,7";
+    node [fontname="Helvetica", fontsize=11, penwidth=1.5];
+    edge [fontname="Helvetica", fontsize=9, penwidth=1.2];
+
+    // Initial State Indicator
+    __start [shape=none, label="", width=0, height=0];
+    __start -> "q0\n(IDLE)" [label="start", penwidth=1.8];
+
+    // Accepting States (Double Circles)
+    node [shape=doublecircle, color="#1b5e20", fillcolor="#e8f5e9", style=filled];
+    "q0\n(IDLE)";
+    "q1\n(NORMAL_OPERATION)";
+    "q2\n(SOLAR_PRIORITY)";
+    "q3\n(ENERGY_SAVING)";
+
+    // Non-Accepting Hazard State (Single Circle, Safety Alert / Lockout)
+    node [shape=circle, color="#b71c1c", fillcolor="#ffebee", style=filled];
+    "q4\n(SAFETY_SHUTDOWN)";
+
+    // State Transitions
+    "q3\n(ENERGY_SAVING)" -> "q3\n(ENERGY_SAVING)" [label="B, H", color="#1565c0"];
+    "q3\n(ENERGY_SAVING)" -> "q0\n(IDLE)" [label="R", color="#6a1b9a"];
+    "q3\n(ENERGY_SAVING)" -> "q1\n(NORMAL_OPERATION)" [label="N", color="#1565c0"];
+    "q3\n(ENERGY_SAVING)" -> "q4\n(SAFETY_SHUTDOWN)" [label="A", color="#c62828"];
+    "q3\n(ENERGY_SAVING)" -> "q2\n(SOLAR_PRIORITY)" [label="S", color="#1565c0"];
+    "q0\n(IDLE)" -> "q3\n(ENERGY_SAVING)" [label="H", color="#1565c0"];
+    "q0\n(IDLE)" -> "q0\n(IDLE)" [label="B, R", color="#6a1b9a"];
+    "q0\n(IDLE)" -> "q1\n(NORMAL_OPERATION)" [label="N", color="#1565c0"];
+    "q0\n(IDLE)" -> "q4\n(SAFETY_SHUTDOWN)" [label="A", color="#c62828"];
+    "q0\n(IDLE)" -> "q2\n(SOLAR_PRIORITY)" [label="S", color="#1565c0"];
+    "q1\n(NORMAL_OPERATION)" -> "q3\n(ENERGY_SAVING)" [label="B, H", color="#1565c0"];
+    "q1\n(NORMAL_OPERATION)" -> "q0\n(IDLE)" [label="R", color="#6a1b9a"];
+    "q1\n(NORMAL_OPERATION)" -> "q1\n(NORMAL_OPERATION)" [label="N", color="#1565c0"];
+    "q1\n(NORMAL_OPERATION)" -> "q4\n(SAFETY_SHUTDOWN)" [label="A", color="#c62828"];
+    "q1\n(NORMAL_OPERATION)" -> "q2\n(SOLAR_PRIORITY)" [label="S", color="#1565c0"];
+    "q4\n(SAFETY_SHUTDOWN)" -> "q0\n(IDLE)" [label="R", color="#6a1b9a"];
+    "q4\n(SAFETY_SHUTDOWN)" -> "q4\n(SAFETY_SHUTDOWN)" [label="A, B, H, N, S", color="#c62828"];
+    "q2\n(SOLAR_PRIORITY)" -> "q3\n(ENERGY_SAVING)" [label="B, H", color="#1565c0"];
+    "q2\n(SOLAR_PRIORITY)" -> "q0\n(IDLE)" [label="R", color="#6a1b9a"];
+    "q2\n(SOLAR_PRIORITY)" -> "q1\n(NORMAL_OPERATION)" [label="N", color="#1565c0"];
+    "q2\n(SOLAR_PRIORITY)" -> "q4\n(SAFETY_SHUTDOWN)" [label="A", color="#c62828"];
+    "q2\n(SOLAR_PRIORITY)" -> "q2\n(SOLAR_PRIORITY)" [label="S", color="#1565c0"];
+}

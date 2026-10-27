@@ -1,0 +1,5 @@
+# Core DFA logic requires only Python 3.10+ standard library.
+# The following optional dependencies are used for diagram rendering and PDF report compilation:
+matplotlib>=3.8.0
+pillow>=10.0.0
+reportlab>=4.0.0
